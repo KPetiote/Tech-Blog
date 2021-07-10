@@ -9,18 +9,18 @@ const withAuth = require('../utils/auth');
 router.get('/', withAuth, (req, res) => {
     Posts.findAll({
         where: {
-            user_id: req.session.user_id
+            users_id: req.session.users_id
         },
         attributes: [
         'id',
         'title',
         'created_at',
-        'post_content'
+        'posts_content'
         ],
         include: [
         {
             model: Comments,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+            attributes: ['id', 'comment_text', 'posts_id', 'users_id', 'created_at'],
             include: {
                 model: Users,
                 attributes: ['username', 'github']
@@ -51,12 +51,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
         'id',
         'title',
         'created_at',
-        'post_content'
+        'posts_content'
         ],
         include: [
             {
             model: Comments,
-            attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+            attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
             include: {
                 model: Users,
                 attributes: ['username', 'github']
@@ -94,14 +94,14 @@ router.get('/create/', withAuth, (req, res) => {
         'id',
         'title',
         'created_at',
-        'post_content'
+        'posts_content'
     ],
     include: [
         {
         model: Comments,
-        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        attributes: ['id', 'comment_text', 'posts_id', 'users_id', 'created_at'],
         include: {
-            model: User,
+            model: Users,
             attributes: ['username', 'github']
         }
         },

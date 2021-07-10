@@ -8,25 +8,25 @@ const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
     console.log('======================');
-    Post.findAll({
+    Posts.findAll({
         attributes: [
             'id',
             'title',
             'created_at',
-            'post_content'
+            'posts_content'
         ],
       order: [['created_at', 'DESC']],
       include: [
     {
-          model: Comment,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          model: Comments,
+          attributes: ['id', 'comment_text', 'posts_id', 'users_id', 'created_at'],
           include: {
-            model: User,
+            model: Users,
             attributes: ['username', 'github']
           }
         },
         {
-          model: User,
+          model: Users,
           attributes: ['username', 'github']
         },
       ]
@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
   });
 
   router.get('/:id', (req, res) => {
-    Post.findOne({
+    Posts.findOne({
       where: {
         id: req.params.id
       },
@@ -47,19 +47,19 @@ router.get('/', (req, res) => {
         'id',
         'title',
         'created_at',
-        'post_content'
+        'posts_content'
       ],
       include: [
         
         {
-          model: User,
+          model: Users,
           attributes: ['username', 'github']
         },
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
           include: {
-            model: User,
+            model: Users,
             attributes: ['username', 'github']
           }
         }
@@ -79,10 +79,10 @@ router.get('/', (req, res) => {
   });
 
 router.post('/', withAuth, (req, res) => {
-    Post.create({
+    Posts.create({
       title: req.body.title,
-      post_content: req.body.post_content,
-      user_id: req.session.user_id
+      posts_content: req.body.posts_content,
+      users_id: req.session.users_id
     })
       .then(dbPostData => res.json(dbPostData))
       .catch(err => {
@@ -92,9 +92,9 @@ router.post('/', withAuth, (req, res) => {
 });
 
 router.put('/:id', withAuth, (req, res) => {
-    Post.update({
+    Posts.update({
         title: req.body.title,
-        post_content: req.body.post_content
+        posts_content: req.body.post_content
       },
       {
         where: {
@@ -115,7 +115,7 @@ router.put('/:id', withAuth, (req, res) => {
   });
 
   router.delete('/:id', withAuth, (req, res) => {
-    Post.destroy({
+    Posts.destroy({
       where: {
         id: req.params.id
       }
