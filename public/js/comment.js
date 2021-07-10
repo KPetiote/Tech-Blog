@@ -1,4 +1,4 @@
-// COMMENT
+// COMMENT JS
 // ---------------------------------------------------------------------------
 
 async function commentFormHandler(event) {
