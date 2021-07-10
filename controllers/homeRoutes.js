@@ -13,14 +13,14 @@ router.get('/', (req, res) => {
         'id',
         'title',
         'created_at',
-        'post_content'
+        'posts_content'
       ],
       include: [
         {
           model: Comments,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
           include: {
-            model: User,
+            model: Users,
             attributes: ['username', 'github']
           }
         },
@@ -61,7 +61,7 @@ router.get('/LOGIN', (req, res) => {
     res.render('signup');
   });
 
-  router.get('/post/:id', (req, res) => {
+  router.get('/posts/:id', (req, res) => {
     Posts.findOne({
       where: {
         id: req.params.id
@@ -70,12 +70,12 @@ router.get('/LOGIN', (req, res) => {
         'id',
         'title',
         'created_at',
-        'post_content'
+        'posts_content'
       ],
       include: [
         {
           model: Comments,
-          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          attributes: ['id', 'comment_text', 'posts_id', 'users_id', 'created_at'],
           include: {
             model: User,
             attributes: ['username', 'github']

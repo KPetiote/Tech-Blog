@@ -18,7 +18,7 @@ Comments.init(
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'user',
+          model: 'users',
           key: 'id'
         }
       },
@@ -26,7 +26,7 @@ Comments.init(
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'post',
+          model: 'posts',
           key: 'id'
         }
       },
@@ -34,7 +34,7 @@ Comments.init(
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            len: [1]
+          len: [1]
         }
       }
   },
