@@ -1,3 +1,6 @@
+// CONNECTION DEPENDENCIES
+// ---------------------------------------------------------------------------
+
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
