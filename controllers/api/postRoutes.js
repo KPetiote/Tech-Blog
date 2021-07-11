@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
       include: [
     {
           model: Comments,
-          attributes: ['id', 'comment_text', 'posts_id', 'users_id', 'created_at'],
+          attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
           include: {
             model: Users,
             attributes: ['username', 'github']
@@ -56,7 +56,7 @@ router.get('/', (req, res) => {
           attributes: ['username', 'github']
         },
         {
-          model: Comment,
+          model: Comments,
           attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
           include: {
             model: Users,
@@ -94,7 +94,7 @@ router.post('/', withAuth, (req, res) => {
 router.put('/:id', withAuth, (req, res) => {
     Posts.update({
         title: req.body.title,
-        posts_content: req.body.post_content
+        posts_content: req.body.posts_content
       },
       {
         where: {

@@ -75,7 +75,7 @@ router.get('/LOGIN', (req, res) => {
       include: [
         {
           model: Comments,
-          attributes: ['id', 'comment_text', 'posts_id', 'users_id', 'created_at'],
+          attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
           include: {
             model: User,
             attributes: ['username', 'github']

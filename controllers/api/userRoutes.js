@@ -2,7 +2,7 @@
 // ---------------------------------------------------------------------------
 
 const router = require('express').Router();
-const { Users } = require('../../models');
+const { Users, Posts, Comments } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
@@ -24,14 +24,14 @@ router.get('/:id', (req, res) => {
         },
         include: [
             {
-              model: Post,
-              attributes: ['id', 'title', 'post_content', 'created_at']
+              model: Posts,
+              attributes: ['id', 'title', 'posts_content', 'created_at']
             },
             {
-              model: Comment,
-              attributes: ['id', 'comment_text', 'created_at'],
+              model: Comments,
+              attributes: ['id', 'comments_text', 'created_at'],
               include: {
-                model: Post,
+                model: Posts,
                 attributes: ['title']
               }
             }
@@ -85,11 +85,11 @@ router.post('/', (req, res) => {
         return;
       }
         req.session.save(() => {
-        req.session.user_id = dbUserData.id;
+        req.session.users_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.github = dbUserData.github;
         req.session.loggedIn = true;
-        res.json({ user: dbUserData, message: 'Login was successful' });
+        res.json({ users: dbUserData, message: 'Login was successful' });
       });
     });
   });
@@ -106,7 +106,7 @@ router.post('/', (req, res) => {
   });
 
 router.put('/:id', withAuth, (req, res) => {
-    User.update(req.body, {
+    Users.update(req.body, {
         individualHooks: true,
         where: {
             id: req.params.id
@@ -126,7 +126,7 @@ router.put('/:id', withAuth, (req, res) => {
   });
 
 router.delete('/:id', withAuth, (req, res) => {
-    User.destroy({
+    Users.destroy({
       where: {
         id: req.params.id
       }
