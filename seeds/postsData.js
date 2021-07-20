@@ -1,4 +1,6 @@
-[
+const { Posts } = require('../models');
+
+const seedPosts = [
   {
     "title": "First Post",
     "posts_content": "This is my first post ",
@@ -26,3 +28,6 @@
     "users_id": 4
   }
 ]
+const postsData = () => Posts.bulkCreate(seedPosts);
+
+module.exports = postsData;
