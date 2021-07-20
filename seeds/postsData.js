@@ -18,7 +18,6 @@ const seedPosts = [
     "title": "Third Post",
     "posts_content": "This is my third post ",
     "users_id": 2
-
   },
   {
     "title": "Fourth Post",
