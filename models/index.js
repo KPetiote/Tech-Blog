@@ -1,33 +1,32 @@
 // INDEX MODEL
 // ---------------------------------------------------------------------------
 
-const Users = require('./Users');
-const Comments = require('./Comments');
-const Posts = require('./Posts');
+const User = require('./User');
+const Post = require('./Post');
+const Comment = require('./Comment');
 
-
-Users.hasMany(Posts, {
-  foreignKey: 'users_id',
+User.hasMany(Post, {
+    foreignKey: 'user_id'
 });
 
-Posts.belongsTo(Users, {
-  foreignKey: 'users_id',
+Post.belongsTo(User, {
+    foreignKey: 'user_id',
 });
 
-Comments.belongsTo(Users, {
-  foreignKey: 'users_id',
+Comment.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+  
+Comment.belongsTo(Post, {
+    foreignKey: 'post_id'
+});
+  
+User.hasMany(Comment, {
+    foreignKey: 'user_id'
+});
+  
+Post.hasMany(Comment, {
+    foreignKey: 'post_id'
 });
 
-Comments.belongsTo(Posts, {
-  foreignKey: 'posts_id',
-});
-
-Users.hasMany(Comments, {
-  foreignKey:'users_id',
-});
-
-Posts.hasMany(Comments, {
-  foreignKey: 'posts_id',
-});
-
-module.exports = { Users, Posts, Comments };
+module.exports = { User, Post, Comment };
