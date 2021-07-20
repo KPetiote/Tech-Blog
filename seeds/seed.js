@@ -1,3 +1,6 @@
+// SEED JS
+// ---------------------------------------------------------------------------
+
 // const sequelize = require('../config/connection');
 // const { Comments, Users, Posts  } = require('../models');
 
