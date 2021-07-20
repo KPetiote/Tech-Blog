@@ -1,9 +1,10 @@
 // INDEX MODEL
 // ---------------------------------------------------------------------------
 
+const Users = require('./Users');
 const Comments = require('./Comments');
 const Posts = require('./Posts');
-const Users = require('./Users');
+
 
 Users.hasMany(Posts, {
   foreignKey: 'users_id',
