@@ -1,3 +1,6 @@
+// POSTS DATA JS
+// ---------------------------------------------------------------------------
+
 const { Posts } = require('../models');
 
 const seedPosts = [
