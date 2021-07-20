@@ -1,3 +1,6 @@
+// USERS DATA JS
+// ---------------------------------------------------------------------------
+
 const { Users } = require('../models');
 
 const seedUsers = [
