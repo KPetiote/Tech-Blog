@@ -2,11 +2,11 @@
 // ---------------------------------------------------------------------------
 
 const router = require('express').Router();
-const { Users, Posts, Comments } = require('../../models');
+const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
-        Users.findAll({
+        User.findAll({
         attributes: { exclude: ['password'] }
     })
       .then(dbUserData => res.json(dbUserData))
@@ -17,26 +17,25 @@ router.get('/', (req, res) => {
   });
 
 router.get('/:id', (req, res) => {
-    Users.findOne({
+    User.findOne({
         attributes: { exclude: ['password']},
         where: {
           id: req.params.id
         },
         include: [
             {
-              model: Posts,
-              attributes: ['id', 'title', 'posts_content', 'created_at']
+              model: Post,
+              attributes: ['id', 'title', 'post_content', 'created_at']
             },
             {
-              model: Comments,
-              attributes: ['id', 'comments_text', 'created_at'],
-              include: {
-                model: Posts,
-                attributes: ['title']
-              }
+                model: Comment,
+                attributes: ['id', 'comment_text', 'created_at'],
+                include: {
+                  model: Post,
+                  attributes: ['title']
+                }
             }
           ]
-
     })
       .then(dbUserData => {
         if (!dbUserData) {
@@ -52,7 +51,7 @@ router.get('/:id', (req, res) => {
   });
 
 router.post('/', (req, res) => {
-    Users.create({
+    User.create({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
@@ -64,13 +63,14 @@ router.post('/', (req, res) => {
         req.session.username = dbUserData.username;
         req.session.github = dbUserData.github;
         req.session.loggedIn = true;
+    
         res.json(dbUserData);
       });
     });
   });
 
   router.post('/login', (req, res) => {
-    Users.findOne({
+    User.findOne({
       where: {
         email: req.body.email
       }
@@ -79,17 +79,22 @@ router.post('/', (req, res) => {
         res.status(400).json({ message: 'No users was found with this email address!' });
         return;
       }
+  
       const validPassword = dbUserData.checkPassword(req.body.password);
+  
       if (!validPassword) {
         res.status(400).json({ message: 'Your password is incorrect!' });
         return;
       }
-        req.session.save(() => {
-        req.session.users_id = dbUserData.id;
+  
+      req.session.save(() => {
+        
+        req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.github = dbUserData.github;
         req.session.loggedIn = true;
-        res.json({ users: dbUserData, message: 'Login was successful' });
+  
+        res.json({ user: dbUserData, message: 'Login was successful' });
       });
     });
   });
@@ -106,7 +111,7 @@ router.post('/', (req, res) => {
   });
 
 router.put('/:id', withAuth, (req, res) => {
-    Users.update(req.body, {
+    User.update(req.body, {
         individualHooks: true,
         where: {
             id: req.params.id
@@ -126,7 +131,7 @@ router.put('/:id', withAuth, (req, res) => {
   });
 
 router.delete('/:id', withAuth, (req, res) => {
-    Users.destroy({
+    User.destroy({
       where: {
         id: req.params.id
       }
@@ -143,5 +148,5 @@ router.delete('/:id', withAuth, (req, res) => {
         res.status(500).json(err);
       });
   });
-  
+
 module.exports = router;
