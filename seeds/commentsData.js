@@ -1,3 +1,6 @@
+// COMMENTS DATA JS
+// ---------------------------------------------------------------------------
+
 const { Comments } = require('../models');
 
 const seedComments =
