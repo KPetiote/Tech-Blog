@@ -2,31 +2,31 @@
 // ---------------------------------------------------------------------------
 
 const router = require('express').Router();
-const { Posts, Users, Comments } = require('../../models');
+const { Post, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
     console.log('======================');
-    Posts.findAll({
+    Post.findAll({
         attributes: [
             'id',
             'title',
             'created_at',
-            'posts_content'
+            'post_content'
         ],
       order: [['created_at', 'DESC']],
       include: [
-    {
-          model: Comments,
-          attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
+      {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
-            model: Users,
+            model: User,
             attributes: ['username', 'github']
           }
         },
         {
-          model: Users,
+          model: User,
           attributes: ['username', 'github']
         },
       ]
@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
   });
 
   router.get('/:id', (req, res) => {
-    Posts.findOne({
+    Post.findOne({
       where: {
         id: req.params.id
       },
@@ -47,19 +47,19 @@ router.get('/', (req, res) => {
         'id',
         'title',
         'created_at',
-        'posts_content'
+        'post_content'
       ],
       include: [
         
         {
-          model: Users,
+          model: User,
           attributes: ['username', 'github']
         },
         {
-          model: Comments,
-          attributes: ['id', 'comments_text', 'posts_id', 'users_id', 'created_at'],
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
           include: {
-            model: Users,
+            model: User,
             attributes: ['username', 'github']
           }
         }
@@ -67,7 +67,7 @@ router.get('/', (req, res) => {
     })
       .then(dbPostData => {
         if (!dbPostData) {
-          res.status(404).json({ message: 'This ID has no posts!' });
+          res.status(404).json({ message: 'There are no posts found for this ID!' });
           return;
         }
         res.json(dbPostData);
@@ -79,10 +79,10 @@ router.get('/', (req, res) => {
   });
 
 router.post('/', withAuth, (req, res) => {
-    Posts.create({
+    Post.create({
       title: req.body.title,
-      posts_content: req.body.posts_content,
-      users_id: req.session.users_id
+      post_content: req.body.post_content,
+      user_id: req.session.user_id
     })
       .then(dbPostData => res.json(dbPostData))
       .catch(err => {
@@ -92,9 +92,9 @@ router.post('/', withAuth, (req, res) => {
 });
 
 router.put('/:id', withAuth, (req, res) => {
-    Posts.update({
+    Post.update({
         title: req.body.title,
-        posts_content: req.body.posts_content
+        post_content: req.body.post_content
       },
       {
         where: {
@@ -103,7 +103,7 @@ router.put('/:id', withAuth, (req, res) => {
       })
       .then(dbPostData => {
         if (!dbPostData) {
-          res.status(404).json({ message: 'This ID has no posts!' });
+          res.status(404).json({ message: 'There are no posts found for this ID!' });
           return;
         }
         res.json(dbPostData);
@@ -115,14 +115,14 @@ router.put('/:id', withAuth, (req, res) => {
   });
 
   router.delete('/:id', withAuth, (req, res) => {
-    Posts.destroy({
+    Post.destroy({
       where: {
         id: req.params.id
       }
     })
       .then(dbPostData => {
         if (!dbPostData) {
-          res.status(404).json({ message: 'This ID has no posts!' });
+          res.status(404).json({ message: 'There are no posts found for this ID!' });
           return;
         }
         res.json(dbPostData);
@@ -132,5 +132,5 @@ router.put('/:id', withAuth, (req, res) => {
         res.status(500).json(err);
       });
   });
-
+  
   module.exports = router;
