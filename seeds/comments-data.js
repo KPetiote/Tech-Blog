@@ -1,32 +1,32 @@
 // COMMENTS DATA JS
 // ---------------------------------------------------------------------------
 
-const { Comments } = require('../models');
+const { Comment } = require('../models');
 
 const seedComments =
 [
     {
-        users_id: 1,
-        posts_id: 5,
-        comments_text: "Test 1"
+        user_id: 1,
+        post_id: 5,
+        comment_text: "Test 1"
     },
     {
-        users_id: 4,
-        posts_id: 5,
-        comments_text: "Test 2"
+        user_id: 4,
+        post_id: 5,
+        comment_text: "Test 2"
     },
     {
-        users_id: 1,
-        posts_id: 4,
-        comments_text: "Test 3"
+        user_id: 1,
+        post_id: 4,
+        comment_text: "Test 3"
     },
     {
-        users_id: 3,
-        posts_id: 6,
-        comments_text: "Test 4"
+        user_id: 3,
+        post_id: 6,
+        comment_text: "Test 4"
     }
 ]
 
-const commentsData = () => Comments.bulkCreate(seedComments);
+const commentsData = () => Comment.bulkCreate(seedComments);
 
 module.exports = commentsData;
