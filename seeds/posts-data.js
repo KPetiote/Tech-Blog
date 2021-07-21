@@ -1,31 +1,31 @@
 // POSTS DATA JS
 // ---------------------------------------------------------------------------
 
-const { Posts } = require('../models');
+const { Post } = require('../models');
 
 const seedPosts = 
 [
   {
     title: "First Post",
-    posts_content: "This is my first post ",
-    users_id: 3
+    post_content: "This is my first post ",
+    user_id: 3
   },
   {
     title: "Second Post",
-    posts_content: "This is my second post ",
-    users_id: 1
+    post_content: "This is my second post ",
+    user_id: 1
   },
   {
     title: "Third Post",
-    posts_content: "This is my third post ",
-    users_id: 2
+    post_content: "This is my third post ",
+    user_id: 2
   },
   {
     title: "Fourth Post",
-    posts_content: "This is my fourth post ",
-    users_id: 4
+    post_content: "This is my fourth post ",
+    user_id: 4
   }
 ]
-const postsData = () => Posts.bulkCreate(seedPosts);
+const postsData = () => Post.bulkCreate(seedPosts);
 
 module.exports = postsData;
