@@ -5,40 +5,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Blog</title>
-  <link rel="stylesheet" href="/css/jass.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
-<body>
-  <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2">
-      <nav class="wrapper">
-        <a href="/">Home</a>
-        <a href="/dashboard">Dashboard</a> 
-        <a href="/login">Login</a>
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        {{!-- <a href="/profile">profile</a> | --}}
-        <button class="no-button" id="logout">Logout</button>
-        {{else}}
-        {{!-- <a href="/login">login</a> --}}
-        {{/if}}
+  <div class="wrapper">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button> --}}
+          <h1 class="has-text-black px-3 py-3 has-text-weight-bold">Tech Blog</h1>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a href="/" class="navbar-item is-hoverable pt-1">
+            {{#if loggedIn}}
+            Home
+            </a>
+
+            <a href="/dashboard" class="navbar-item is-hoverable pt-1">
+              Dashboard
+            </a>
+
+            <a href="/dashboard/create/" class="navbar-item is-hoverable pt-1 mr-4">
+            Create post
+            </a>
+
+            <a>
+              <button id="logout" class="button is-danger">Logout</button>
+            </a>
+
+            {{else}}
+            <a href="/" class="navbar-item is-hoverable pt-1">
+              Home
+            </a>
+            
+            <a href="/login" class="button is-light is-link">
+              Login
+            </a>
+
+            {{/if}}
+          </div>
+        </div>
       </nav>
-      <h1>
-        <a href="/">The Tech Blog</a>
-      </h1>
-    </header>
-    <main class="container container-fluid mt-5">
-      <!-- Render the sub layout -->
-      {{{ body }}}
+
+    <main class="container is-fluid">
+            {{{ body }}}
     </main>
-    <footer>
-      
+
+    <footer class="footer rows pb-2">
+      <div class="row-is-full content has-text-centered">
+          <p>
+            <a href="/">Home</a>{{#if loggedIn}} | 
+            <a href="/dashboard/">Dashboard</a> | 
+            <a href="/dashboard/create/">Create a new post</a>
+            {{else}}
+              | <a href="/login/">Login</a>
+            {{/if}}
+          </p>
+      </div>
+      <div class="row-is-full content has-text-centered">
+        <p>
+          <a href="https://github.com/Kpetiote">Kenneth Petiote</a> | Let's connect:
+          <a href="https://github.com/Kpetiote/Tech-Blog"><i class="fab fa-github"></i></a> |  
+          <a href="mailto:kenneth.petiote@gmail.com"><i class="far fa-envelope"></i></a>
+        </p>
+      </div>
     </footer>
+
   </div>
 
-  <!-- Render script for logged in users only -->
-  {{#if logged_in}}
+  {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
 </body>
