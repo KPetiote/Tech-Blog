@@ -17,12 +17,30 @@ header, .project:not(:last-child) {
   text-decoration: underline;
 }
 
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
+.background-info{
+  background-color: #056605;
 }
 
-.has-background-info{
-  background-color: #056605;
+p{
+  color: #056605;
+}
+
+.green {
+  color: #056605
+}
+.round{
+  border-radius: 20px;
+}
+
+.round-top{
+  border-radius: 20px 20px 0 0;
+}
+
+.padding{
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.button-padding{
+  padding-top: 1%;
 }
