@@ -23,7 +23,7 @@ To create a post users will need to sign up and create an account.\
 User should be able to create, comment, and edit post in the blog site.
 
 ## Demo
-![Alt text](./assets/images/tech-blog.gif"Tech-Blog")
+![Alt text](./public/images/tech-blog.gif "Tech-Blog")
 
 ## Program Installation
 To use this program we will need to install Node.js & MySQL Workbench.\
