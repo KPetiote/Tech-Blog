@@ -65,7 +65,7 @@ The program will then initialize and function as shown in the demo.
 - [Dotenv](https://www.npmjs.com/package/dotenv)
 - [Express](https://www.npmjs.com/package/express)
 - [Javascript](https://www.javascript.com/)
-- [Handlebars]ß(https://www.npmjs.com/package/express-handlebars)
+- [Handlebars](https://www.npmjs.com/package/express-handlebars)
 - [MySQL](https://www.mysql.com/)
 - [Node.js](https://nodejs.org/en/about/)
 - [Sequelize](https://sequelize.org/)
